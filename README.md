@@ -86,3 +86,29 @@ async function createCourse() {
 
 createCourse(); // Execute
 ```
+
+---
+### Querying Documents
+
+#### In querying we retrive the values from the database
+
+```javascript
+async function getCourses() {
+  const courses = await Course
+    .find() // If we do that we will see all the values inside the database
+  console.log(courses);
+}
+```
+
+#### Filtering
+
+```javascript
+async function getCourses() {
+  const courses = await Course
+    .find({ author: "Pedro", isPublished: true }) // Filter example
+    .limit(10) // Limit number of documents
+    .sort({ name: -1 }) //Descending -1 Ascending 1
+    .select({ name: 1, tags: 1 });
+  console.log(courses);
+}
+```
