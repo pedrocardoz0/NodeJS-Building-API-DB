@@ -113,7 +113,7 @@ async function getCourses() {
 }
 ```
 
-#### Filtering Complex Comparison
+### Filtering Complex Comparison
 
 ```javascript
 
@@ -140,3 +140,23 @@ async function getCourses() {
 ```
 
 #### In some cases we would like to use some operators like equal, less then, grather then, in or not in. At this point when we are filtering something we want to filter some informations, it's totaly possible but we need to define inside the *find()* method the object and the operators that we want.
+
+### Filtering Complex Logical
+
+#### If we want to add logical operators like or and we should follow this example below.
+
+```javascript
+async function getCourses() {
+  const courses = await Course
+    //.or([])
+    //.and([])
+    .find()
+    .or([ { author: "Pedro" }, { isPublished: true } ])
+    .limit(10)
+    .sort({ name: -1 })
+    .select({ name: 1, tags: 1 });
+  console.log(courses);
+}
+```
+
+#### We need to define the array because inside of that we are going to pass objects that will receive the opration or the statement for filtering
