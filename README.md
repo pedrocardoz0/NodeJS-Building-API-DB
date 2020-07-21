@@ -112,3 +112,31 @@ async function getCourses() {
   console.log(courses);
 }
 ```
+
+#### Filtering Complex Comparison
+
+```javascript
+
+async function getCourses() {
+  const courses = await Course
+    /**
+     * eq (equal)
+     * ne (not equal)
+     * gt (grather than)
+     * gte (grathen then or equal to)
+     * lt (less then)
+     * lte (less then or equal to)
+     * in 
+     * nin (not in)
+     */
+    //.find({ author: "Pedro", isPublished: true })
+    //.find({ $price: { $gt: 10, $lte: 20 } })
+    .find({ $price: { $in: [10, 20, 30] } })
+    .limit(10)
+    .sort({ name: -1 })
+    .select({ name: 1, tags: 1 });
+  console.log(courses);
+}
+```
+
+#### In some cases we would like to use some operators like equal, less then, grather then, in or not in. At this point when we are filtering something we want to filter some informations, it's totaly possible but we need to define inside the *find()* method the object and the operators that we want.
