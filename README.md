@@ -177,3 +177,16 @@ async function getCourses() {
   console.log(courses);
 }
 ```
+
+### Couting Documents
+
+```javascript
+async function getCourses() {
+  const courses = await Course
+    .find({ author: "Pedro", isPublished: true })
+    .limit(10)
+    .sort({ name: 1 })
+    .count() // Count the quantity of documents that are related to that find property
+  console.log(courses);
+}
+```

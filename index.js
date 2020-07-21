@@ -29,10 +29,10 @@ async function createCourse() {
 
 async function getCourses() {
   const courses = await Course
-    .find({ author: /.*Pedro.*/i })
+    .find({ author: "Pedro", isPublished: true })
     .limit(10)
-    .sort({ name: -1 })
-    .select({ name: 1, tags: 1 });
+    .sort({ name: 1 })
+    .count()
   console.log(courses);
 }
 
