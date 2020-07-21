@@ -58,3 +58,31 @@ const course = new Course({
 });
 ```
 #### Now we have created the instace from the class, and then we can simply pass the object with the all values defined in the schema. The idea from MongoDB is to create the object and store that in a database.
+
+---
+### Save the data in the database
+
+
+#### When we are going to save something inside the database the function is asyncrounous. *course.save()*
+
+```javascript
+const result = await course.save();
+```
+
+#### In the result we are receiving something from the promise that is returned from the function *course.save()*
+
+```javascript
+async function createCourse() {
+  const course = new Course({
+    name: "React Course",
+    author: "Pedro",
+    tags: ["react", "front-end"],
+    isPublished: true,
+  }); // Object that will be stored
+
+  const result = await course.save(); // Saving
+  console.log(result);
+}
+
+createCourse(); // Execute
+```
