@@ -160,3 +160,20 @@ async function getCourses() {
 ```
 
 #### We need to define the array because inside of that we are going to pass objects that will receive the opration or the statement for filtering
+
+---
+
+### Regular Expression
+
+#### If you want to filter some users that are like pedro, Pedro, PEDRO, PedRo and so on we have to use regular expressions for that.
+
+```javascript
+async function getCourses() {
+  const courses = await Course
+    .find({ author: /.*Pedro.*/i })
+    .limit(10)
+    .sort({ name: -1 })
+    .select({ name: 1, tags: 1 });
+  console.log(courses);
+}
+```

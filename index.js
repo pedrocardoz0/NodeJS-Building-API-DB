@@ -17,9 +17,9 @@ const Course = mongoose.model("Course", courseSchema);
 
 async function createCourse() {
   const course = new Course({
-    name: "Angular Course",
-    author: "Khan",
-    tags: ["Vue", "front-end"],
+    name: "SQL Course",
+    author: "pEdro",
+    tags: ["SQL", "database"],
     isPublished: true,
   });
 
@@ -29,10 +29,7 @@ async function createCourse() {
 
 async function getCourses() {
   const courses = await Course
-    //.or([])
-    //.and([])
-    .find()
-    .or([ { author: "Pedro" }, { isPublished: true } ])
+    .find({ author: /.*Pedro.*/i })
     .limit(10)
     .sort({ name: -1 })
     .select({ name: 1, tags: 1 });
