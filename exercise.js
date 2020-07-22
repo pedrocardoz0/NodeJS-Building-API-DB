@@ -6,8 +6,8 @@ mongoose
     .catch((err) => console.error("Error ", err));
 
 const courseSchema = new mongoose.Schema({
-    tags: [Array],
-    date: { type: Date, default: Date.now },
+    tags: [ String ],
+    date: Date,
     name: String,
     author: String,
     isPublished: Boolean,
@@ -17,12 +17,17 @@ const courseSchema = new mongoose.Schema({
 const Course = mongoose.model("Course", courseSchema);
 
 async function getCourses() {
-    const courses = await Course
-        .find()
+    return await Course
+        .find({ tags: "backend", isPublished: true })
         .limit(10)
         .sort({ name: 1 })
-        .select({ name: 1, tags: "backend" })
+        .select({ name: 1, author: 1 });
+    
+}
+
+async function run() {
+    const courses = await getCourses();
     console.log(courses)
 }
 
-getCourses()
+run();

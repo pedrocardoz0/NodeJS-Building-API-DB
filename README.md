@@ -190,3 +190,30 @@ async function getCourses() {
   console.log(courses);
 }
 ```
+
+---
+
+## Exercises tips
+
+#### There are some tips to we check. First you can see that the result was returned as an const and then we need to create another asycronous function to run the aplication result.
+
+```javascript
+async function getCourses() {
+    return await Course
+        .find({ tags: "backend", isPublished: true })
+        .limit(10)
+        .sort({ name: 1 })
+        .select({ name: 1, author: 1 });
+    
+}
+```
+```javascript
+async function run() {
+    const courses = await getCourses();
+    console.log(courses)
+}
+
+run();
+```
+
+#### You can see that we have created another async function that will receive the the result from the await operation inside the Course model.
