@@ -36,4 +36,14 @@ async function getCourses() {
   console.log(courses);
 }
 
-getCourses();
+async function updateCourse(id) {
+  const result = await Course.update({ _id: id }, {
+    $set: {
+      author: "Pedro Cardozo",
+      isPublished: false
+    }
+  });
+  console.log(result)
+}
+
+updateCourse('5f15c50e63498b43e8cbcb60')

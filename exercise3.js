@@ -27,8 +27,21 @@ async function getCourses() {
     .select("name author price");
 }
 
-async function run() {
-  const courses = await getCourses();
-  console.log(courses);
+async function updateCourse(id) {
+  //Query First
+  const course = await Course.findById(id);
+  if(!course) return;
+  course.isPublished = true;
+  course.author = 'Another Author';
+
+  const result = await course.save();
+  console.log(result)
 }
-run();
+
+updateCourse("5a68fdc3615eda645bc6bdec")
+
+// async function run() {
+//   const courses = await updateCourse();
+//   console.log(courses);
+// }
+// run();
