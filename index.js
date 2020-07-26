@@ -59,4 +59,9 @@ async function updateCourse(id) {
   console.log(result)
 }
 
-updateCourseQuery('5f1749f465358c49eca3dd8b')
+async function removeCourse(id) {
+  const result = await Course.deleteOne({ _id: id })
+  console.log(result)
+}
+
+removeCourse('5f1749f465358c49eca3dd8b')

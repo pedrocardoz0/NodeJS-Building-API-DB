@@ -245,3 +245,29 @@ async function updateCourseQuery(id) {
 
 #### Then we wait for the result, *course.save()* returns a promise, and when it's finished we show in the console the result of that promise.
 
+---
+
+## Updating Documentes - Update First
+
+```javascript
+async function updateCourse(id) {
+  const result = await Course.update({ _id: id }, {
+    $set: {
+      author: "Pedro Cardozo",
+      isPublished: false
+    }
+  });
+  console.log(result)
+}
+```
+
+---
+
+## Remove Documents
+
+```javascript
+async function removeCourse(id) {
+  const result = await Course.deleteOne({ _id: id })
+  console.log(result)
+}
+```
