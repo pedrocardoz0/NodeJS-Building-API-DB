@@ -220,5 +220,28 @@ run();
 
 ---
 
-## Updating Documentes
+## Updating Documentes - Query First
+
+#### In this section we have learned about query first approach
+
+```javascript
+async function updateCourseQuery(id) {
+  const course = await Course.findById(id)
+  if (!course) return;
+
+  course.set({
+    isPublished: true,
+    author: 'Another Author'
+  });
+
+  const result = await course.save();
+  console.log(result)
+}
+```
+
+#### At the first line we pass the id as an parameter, sooner we define the course varible that will return a promise with the course itself, using the method *findById()*.
+
+#### If the couse doesn't exist it return and then the function stop, instead of that we use the method *set({})* and the fields that we want to update.
+
+#### Then we wait for the result, *course.save()* returns a promise, and when it's finished we show in the console the result of that promise.
 
