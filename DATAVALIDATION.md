@@ -35,3 +35,38 @@ async function createCourse() {
 ```
 
 #### In this example we ommited the name field, above we can check that we defined try catch statement we await for the resut and then we store and display that in the console. If an exception occures as expected in our example an error message will be displayed.
+
+
+----
+
+### Built-In Validators
+
+#### Some of the the tecniques to validade our input inside the database is to use the built-in validators, take a look.
+
+```javascript
+const courseSchema = new mongoose.Schema({
+  name: { type: String, required: true, minlength: 5, maxlength: 255 },
+  category: {
+    type: String,
+    enum: ["web", "mobile", "network"],
+    required: true,
+  },
+  author: String,
+  tags: [String],
+  date: { type: Date, default: Date.now },
+  isPublished: Boolean,
+  price: {
+    type: Number,
+    required: function () {
+      return this.isPublished;
+    },
+    min: 10,
+    max: 200,
+  },
+});
+```
+
+#### We have some property like minlength and max, an intreting topic about validations is that the process of validation happens in mongoose not in the database itself, if you would like to validade something you will do that with mongoose not in the database.
+
+
+#### If you noiteced inside price we passed an function to *required* field, that means that we will only pass this field if the field *isPublished* is true.
