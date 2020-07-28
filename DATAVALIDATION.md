@@ -70,3 +70,40 @@ const courseSchema = new mongoose.Schema({
 
 
 #### If you noiteced inside price we passed an function to *required* field, that means that we will only pass this field if the field *isPublished* is true.
+
+----
+
+### Custom Validators
+
+```javascript
+const courseSchema = new mongoose.Schema({
+  name: { type: String, required: true, minlength: 5, maxlength: 255 },
+  category: {
+    type: String,
+    enum: ["web", "mobile", "network"],
+    required: true,
+  },
+  author: String,
+  tags: {
+    type: Array,
+    validate: {
+      validator: function (v) {
+        return v && v.length > 0;
+      },
+      message: 'A course should hava at least on tag.'
+    }
+  },
+  date: { type: Date, default: Date.now },
+  isPublished: Boolean,
+  price: {
+    type: Number,
+    required: function () {
+      return this.isPublished;
+    },
+    min: 10,
+    max: 200,
+  },
+});
+```
+
+#### Inside tags we have defined the type of array we define the custom validation inside the validator property, it will only return the value if it exists and the legth is higher then zero.
