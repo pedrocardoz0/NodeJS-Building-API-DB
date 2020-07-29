@@ -107,3 +107,44 @@ const courseSchema = new mongoose.Schema({
 ```
 
 #### Inside tags we have defined the type of array we define the custom validation inside the validator property, it will only return the value if it exists and the legth is higher then zero.
+
+----
+
+### Async Validator
+
+```javascript
+const courseSchema = new mongoose.Schema({
+  name: { type: String, required: true, minlength: 5, maxlength: 255 },
+  category: {
+    type: String,
+    enum: ["web", "mobile", "network"],
+    required: true,
+  },
+  author: String,
+  tags: {
+    type: Array,
+    validate: {
+      isAsync: true,
+      validator: function (v, callback) {
+        setTimeout(() => {
+          const result = v && v.length > 0;
+          callback(result);
+        }, 4000);
+      },
+      message: 'A course should hava at least on tag.'
+    }
+  },
+  date: { type: Date, default: Date.now },
+  isPublished: Boolean,
+  price: {
+    type: Number,
+    required: function () {
+      return this.isPublished;
+    },
+    min: 10,
+    max: 200,
+  },
+});
+```
+
+#### Inside tag we have created our own function, in this case we have created an Asyncronous function that will have a delay of 4 seconds.
