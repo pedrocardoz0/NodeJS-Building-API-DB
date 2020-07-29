@@ -148,3 +148,29 @@ const courseSchema = new mongoose.Schema({
 ```
 
 #### Inside tag we have created our own function, in this case we have created an Asyncronous function that will have a delay of 4 seconds.
+
+----
+
+### Validation Errors
+
+#### Sometimes we want to see all the errors that happens in our code, so we can simply do this.
+
+```javascript
+async function createCourse() {
+  const course = new Course({
+    name: "Angular Course",
+    author: "Cardozo",
+    // tags: ["Angular", "Web"],
+    isPublished: true,
+    price: 15,
+    category: "web",
+  });
+  try {
+    const result = await course.save();
+    console.log(result);
+  } catch (ex) {
+    for(field in ex.errors)
+      console.log(ex.errors[field]);
+  }
+}
+```
